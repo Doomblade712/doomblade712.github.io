@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const steamLink = 'https://store.steampowered.com/app/4642060/InVein/';
+---
+<Layout title="Malik Danab - InVein" active="projects">
+  <main class="page-modules">
+    <div class="image-block">
+      <a href={steamLink} target="_blank" rel="noopener">
+        <img src="/images/invein-1.png" alt="InVein" />
+      </a>
+    </div>
+    <div class="module-columns">
+      <div class="text-block">
+        <div>
+          Description: <a href={steamLink} target="_blank" rel="noopener">InVein</a> is a
+          psychological horror game where you play as a patient exploring a disturbing,
+          ever-changing hospital while relying on a limited IV supply to stay alive. As you move
+          through rooms, solve puzzles, and uncover unsettling clues, reality begins to break down,
+          and the staff becomes something far more dangerous. The game focuses on atmosphere,
+          tension, and managing your resources while trying to survive what's happening around you.
+        </div>
+        <div>
+          Contributions: Sound Systems, Debugging, Radio System, Gamma Implementation, Debugging,
+          General Programming.
+        </div>
+        <div>Engine &amp; Tools: Unreal Engine, Perforce</div>
+      </div>
+      <div class="video-block">
+        <div class="video-frame">
+          <iframe
+            src="https://www-ccv.adobe.io/v1/player/ccv/57-qcx58jFp/embed?bgcolor=%23191919&lazyLoading=true&api_key=BehancePro2View"
+            title="InVein gameplay video"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

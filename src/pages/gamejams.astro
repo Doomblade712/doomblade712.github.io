@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const covers = [
+  { href: '/surviving-vampire', img: '/images/cover-surviving-vampire.png', title: 'Surviving Vampire', date: '2023' },
+  { href: '/intaglio', img: '/images/cover-intaglio.png', title: 'Intaglio', date: '2024' },
+  { href: '/wildfire-warfare', img: '/images/cover-wildfire-warfare.png', title: 'Wildfire Warfare', date: '2024' },
+  { href: '/trash-mammal', img: '/images/cover-trash-mammal.png', title: 'Trash Mammal', date: '2022' },
+];
+---
+<Layout title="Malik Danab - GameJams" active="gamejams">
+  <main>
+    <header class="masthead">
+      <h1>A collection of My GameJams's</h1>
+      <p>"The only thing better than playing games is making one."</p>
+    </header>
+    <div class="project-covers">
+      {covers.map((cover) => (
+        <a class="project-cover" href={cover.href}>
+          <div class="cover-image">
+            <img src={cover.img} alt={cover.title} loading="lazy" />
+          </div>
+          <div class="cover-details">
+            <div class="title">{cover.title}</div>
+            <div class="date">{cover.date}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>

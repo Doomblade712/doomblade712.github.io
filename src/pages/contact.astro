@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Malik Danab - Contact" active="contact">
+  <main class="page-modules">
+    <!--
+      The old Adobe Portfolio form was backed by Adobe's servers. This static
+      version opens the visitor's email app with the message pre-filled.
+      (Could be upgraded to a real backend later with a service like Formspree.)
+    -->
+    <form class="contact-form" id="contact-form">
+      <label for="contact-name">Name *</label>
+      <input id="contact-name" name="name" type="text" required />
+
+      <label for="contact-email">Email Address *</label>
+      <input id="contact-email" name="email" type="email" required />
+
+      <label for="contact-message">Message *</label>
+      <textarea id="contact-message" name="message" required></textarea>
+
+      <div class="submit-row">
+        <button type="submit" class="pill-button">Submit</button>
+      </div>
+    </form>
+    <p class="text-block" id="contact-sent" hidden>Thank you!</p>
+  </main>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const subject = `Portfolio contact from ${data.get('name')}`;
+      const body = `${data.get('message')}\n\nFrom: ${data.get('name')} <${data.get('email')}>`;
+      window.location.href =
+        `mailto:mtd.danab@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      form.hidden = true;
+      const sent = document.getElementById('contact-sent');
+      if (sent) sent.hidden = false;
+    });
+  </script>
+</Layout>

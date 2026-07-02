@@ -1,0 +1,88 @@
+---
+import SocialLinks from '../components/SocialLinks.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Which nav link to highlight: 'about-me' | 'projects' | 'gamejams' | 'contact' */
+  active?: string;
+}
+
+const {
+  title,
+  description = 'Gameplay Programmer and Technical Designer specializing in C#, C++, and UE5. Explore my portfolio featuring solo projects like Foursight and technical sound design for InVein.',
+  active = '',
+} = Astro.props;
+
+const navLinks = [
+  { key: 'about-me', href: '/about-me', label: 'About Me' },
+  { key: 'projects', href: '/projects', label: 'Projects' },
+  { key: 'gamejams', href: '/gamejams', label: 'GameJams' },
+  { key: 'contact', href: '/contact', label: 'Contact' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/images/favicon.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&family=Quicksand:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <button class="hamburger" aria-label="Open menu">
+        <i></i><i></i><i></i>
+      </button>
+      <nav class="nav-links" aria-label="Main">
+        {navLinks.map((link) => (
+          <a href={link.href} class={active === link.key ? 'active' : undefined}>{link.label}</a>
+        ))}
+      </nav>
+      <a href="/" class="site-logo">Malik Danab</a>
+      <SocialLinks />
+    </header>
+
+    <nav class="responsive-nav" aria-label="Mobile">
+      <button class="close-nav" aria-label="Close menu">&times;</button>
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <slot />
+
+    <footer class="site-footer">
+      <SocialLinks />
+      <div class="copyright">&copy; 2026 by Malik Danab</div>
+    </footer>
+
+    <a href="#top" class="back-to-top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 15l8-8 8 8-1.5 1.5L12 10l-6.5 6.5z" />
+      </svg>
+    </a>
+
+    <script>
+      const panel = document.querySelector('.responsive-nav');
+      document.querySelector('.hamburger')?.addEventListener('click', () => panel?.classList.add('open'));
+      document.querySelector('.close-nav')?.addEventListener('click', () => panel?.classList.remove('open'));
+      panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => panel.classList.remove('open')));
+
+      const backToTop = document.querySelector('.back-to-top');
+      const toggleBackToTop = () => backToTop?.classList.toggle('visible', window.scrollY > 300);
+      window.addEventListener('scroll', toggleBackToTop, { passive: true });
+      toggleBackToTop();
+      backToTop?.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+  </body>
+</html>

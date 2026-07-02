@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const storeLink = 'https://chromewebstore.google.com/detail/finalprice/nenadidhmomacjknlfgcceokgmegkkhk?hl=en&authuser=0';
+---
+<Layout title="Malik Danab - FinalPrice" active="projects">
+  <main class="page-modules">
+    <div class="module-columns">
+      <div class="text-block text-left">
+        <div>
+          <a href={storeLink} target="_blank" rel="noopener">FinalPrice</a> automatically detects
+          prices on any webpage and shows you the real cost of items, tax included, before you buy.<br />
+          &bull; Scans prices on any page and adds a small badge showing the after-tax total<br />
+          &bull; Optionally replaces the original price with the tax-included amount<br />
+          &bull; Works on Amazon, Walmart, eBay, and virtually any e-commerce site
+        </div>
+        <div>
+          TAX RATES<br />
+          &bull; Auto-detects your US state via IP address<br />
+          &bull; Or manually select your state from the dropdown<br />
+          &bull; Add a local city/county rate on top of the state rate<br />
+          &bull; Set a custom rate for specific sites
+        </div>
+        <div>
+          CURRENCY CONVERSION<br />
+          &bull; Convert displayed prices to 30+ currencies using live exchange rates<br />
+          &bull; Rates are cached hourly.
+        </div>
+        <div>
+          SITE CONTROLS<br />
+          &bull; Blacklist sites where you don't want it running<br />
+          &bull; Whitelist-only mode: run exclusively on sites you choose<br />
+          &bull; Per-domain tax rate overrides
+        </div>
+        <div>
+          PRIVACY<br />
+          &bull; No data collection. No tracking. No ads.<br />
+          &bull; All settings stored locally in your browser.<br />
+          &bull; Network requests only when you use IP detection or currency conversion.<br />
+          &bull; Full privacy policy linked in the extension.
+        </div>
+      </div>
+      <div class="image-block">
+        <a href={storeLink} target="_blank" rel="noopener">
+          <img src="/images/sales-tax-calculator-1.png" alt="FinalPrice browser extension" />
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

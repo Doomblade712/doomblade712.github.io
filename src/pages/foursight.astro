@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const itchLink = 'https://malikdanab.itch.io/foursight';
+---
+<Layout title="Malik Danab - FourSight" active="projects">
+  <main class="page-modules">
+    <div class="module-columns">
+      <div class="text-block text-left">
+        <div>
+          <a href={itchLink} target="_blank" rel="noopener">FourSight</a> is a roguelike
+          deck-building tower defense game built in Unity. Players defend a central core by drawing
+          tower and spell cards each round, placing defenses, and managing resources under
+          pressure. Enemies navigate the board dynamically using a custom flow field pathfinding
+          system, rerouting around towers in real time. Each run is procedurally generated with
+          branching paths through battles, shops, and events, drawing inspiration from Slay the
+          Spire's progression loop. Players unlock new cards and grow stronger across runs, pushing
+          for deeper clears.
+        </div>
+        <div>
+          Technical highlights: Built enemy movement and tower simulation on Unity DOTS (ECS) for
+          high-performance entity processing Implemented a flow field combined with break-cost
+          scoring so enemies intelligently route through or around tower clusters Data-driven
+          design using ScriptableObjects for towers, enemies, cards, and keywords, letting
+          designers tune the game without touching code
+        </div>
+        <div>Tools: Unity 6, C#, Photoshop, Aseprite, GitHub</div>
+      </div>
+      <div class="image-block">
+        <a href={itchLink} target="_blank" rel="noopener">
+          <img src="/images/foursight-1.png" alt="FourSight" />
+        </a>
+      </div>
+    </div>
+
+    <div class="text-block">
+      <div style="font-size:24px;">Technical Systems</div>
+    </div>
+
+    <div class="module-columns">
+      <div class="text-block">
+        <div>Flow Field Pathfinding</div>
+        <div>
+          Enemy navigation in Foursight is driven by a backward Dijkstra flow field computed from
+          the nexus outward every frame. Instead of each enemy running its own pathfinding query, a
+          single global grid stores the optimal move direction and cost-to-goal for every cell.
+          Enemies read the direction from the cell they occupy and step toward the lowest-cost
+          neighbor. This scales to hundreds of simultaneous enemies with zero per-entity
+          pathfinding overhead.
+        </div>
+        <div>
+          The more interesting design problem was towers. Treating a placed tower as a hard wall
+          forces enemies into long, predictable detours and removes meaningful player decisions
+          about where to place. Instead, each tower is a traversable obstacle with a dynamic break
+          cost. The base cost to walk through a tower is roughly 1.5 normal steps, but drops by 30%
+          for each enemy already attacking it. The cooperative discount creates emergent group
+          behavior: the third enemy approaching a tower finds it cheaper to join the attack than to
+          detour around it. When a tower hits its attacker cap, its cost spikes to 200, routing all
+          new enemies away.
+        </div>
+        <div>
+          Two additional layers shape cell selection without any flocking logic: an occupancy
+          penalty (live enemy count in a candidate cell raises its cost in real time) and path
+          stamps (a one-frame-delayed cost overlay on recently-traveled cells). Neither system
+          knows about lanes. The spreading and lane formation fall out of each enemy greedily
+          avoiding cells that others have just committed to.
+        </div>
+      </div>
+      <div class="video-block">
+        <div class="video-frame">
+          <iframe
+            src="https://www-ccv.adobe.io/v1/player/ccv/2RNZ-DdToh4/embed?bgcolor=%23191919&lazyLoading=true&api_key=BehancePro2View"
+            title="FourSight flow field pathfinding video"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-columns">
+      <div class="text-block">
+        <div>Card Feel &amp; Placement</div>
+        <div>
+          Cards are standard Unity UI objects, but the goal was to make interactions feel
+          deliberate and tactile rather than purely functional. Dragging a card above a vertical
+          screen threshold triggers a mode shift: the card locks to a canvas arc position, a
+          placement ghost spawns on the grid using the tower's actual visual prefab, and AOE
+          preview tiles appear color-scaled by damage value. The ghost tints red or green to
+          communicate placement validity in the same frame the check runs. Pressing Q or E rotates
+          the ghost and live-rotates the AOE overlay in sync.
+        </div>
+        <div>
+          Placement verification runs in two stages: energy check first, then a call to the DOTS
+          bridge that validates against edge-zone restrictions, existing tower footprints, and the
+          nexus cell. On a valid drop, energy deducts immediately, the card destroys itself, and
+          the tower entity begins operating before the placement animation finishes. Cards returned
+          to hand from invalid drops or explicit cancels lerp back with an ease-out-back tween to
+          reinforce the feel of a physical card snapping into place.
+        </div>
+        <div>
+          Rotation state (0 to 3 clockwise 90-degree steps) is carried through the entire pipeline:
+          from the ghost preview, to the DOTS bridge call, to the baked entity component. All AOE
+          shape offsets are rotated at query time, so the tower that fires matches exactly what the
+          ghost showed at placement
+        </div>
+      </div>
+      <div class="video-block">
+        <div class="video-frame">
+          <iframe
+            src="https://www-ccv.adobe.io/v1/player/ccv/3B6SnPFDgup/embed?bgcolor=%23191919&lazyLoading=true&api_key=BehancePro2View"
+            title="FourSight card placement video"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-block">
+      <div>Data-Driven Keyword System</div>
+      <div>
+        Card effects in Foursight are not hardcoded. Each CardInfo ScriptableObject carries a list
+        of keyword entries, pairs of a KeywordDefinition asset (a tag and default parameter) with
+        an optional per-card override. A card that draws two cards and then heals the nexus for 20
+        HP is two entries stacked in the Inspector. No code changes are required for new card
+        combinations.
+      </div>
+      <div>
+        At runtime, KeywordExecutor runs the chain as a coroutine. It builds a context object that
+        resolves and injects references each handler might need: draw pile, discard pile, hand,
+        energy manager, the DOTS EntityManager, and the target grid cell. Then it iterates the
+        keyword list, yielding each handler as a nested coroutine. Adding a new keyword type means
+        writing one class implementing IKeywordHandler and registering it by tag. The rest of the
+        pipeline is unchanged.
+      </div>
+      <div>
+        Cancellation required specific design work. The Discard keyword is asynchronous: the player
+        clicks cards to discard and can press Escape to abort. When a handler sets a cancel flag on
+        the context, the executor breaks the chain and fires an onCancelled callback, which refunds
+        energy and returns the card to hand. No handler knows what comes before or after it in the
+        chain. The separation between keyword definition (ScriptableObject data), execution order
+        (CardInfo list), and behavior (registered handlers) means new cards can be authored without
+        touching existing handler code.
+      </div>
+    </div>
+
+    <div class="text-block">
+      <div>ECS / DOTS Simulation Core</div>
+      <div>
+        Foursight's simulation layer, including enemies, towers, pathfinding, combat, and health,
+        runs on Unity's Entity Component System (DOTS). The decision was intentional: a wave of 80
+        to 100 enemies alongside 20+ active towers generates thousands of component queries per
+        frame, and DOTS's cache-friendly data layout keeps those queries fast without low-level
+        manual optimization.
+      </div>
+      <div>
+        All component types are defined in a single file, Components.cs. This was a deliberate
+        choice to keep the data schema visible in one place rather than scattered across feature
+        folders. Any engineer can see every piece of simulation state from one file. The 26+ ECS
+        systems run in an explicitly declared execution order. As one example: all spawn systems
+        are ordered after EnemyCleanupSystem so that dead entities are already removed from queries
+        before wave-completion checks fire. Damage is always deferred: systems write DamageEvent
+        structs to per-entity dynamic buffers, and health systems drain those buffers later in the
+        same frame, avoiding any ordering race conditions.
+      </div>
+      <div>
+        ECS systems communicate to the MonoBehaviour layer through static C# events rather than
+        managed object references inside components, keeping Burst compilation available on the
+        simulation hot path. The SimulationAnimationEvents hub raises six typed events (attacked,
+        hurt, and died, for both towers and enemies) that visual sync systems subscribe to. No ECS
+        system knows anything about GameObjects, renderers, or animations. That boundary is clean
+        by design.
+      </div>
+    </div>
+  </main>
+</Layout>

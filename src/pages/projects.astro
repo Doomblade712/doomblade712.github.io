@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const covers = [
+  { href: '/sales-tax-calculator', img: '/images/cover-finalprice.png', title: 'FinalPrice', date: '2026' },
+  { href: '/invein', img: '/images/cover-invein.png', title: 'InVein', date: '2026' },
+  { href: '/foursight', img: '/images/cover-foursight.jpg', title: 'FourSight', date: '2026' },
+  { href: '/ephemeral-dust', img: '/images/cover-ephemeral-dust.png', title: 'Ephemeral Dust', date: '2022' },
+  { href: '/shroom-boom', img: '/images/cover-shroom-boom.png', title: 'Shroom Boom', date: '2020' },
+  { href: '/austere', img: '/images/cover-austere.png', title: 'Austere', date: '2025' },
+];
+---
+<Layout title="Malik Danab - Projects" active="projects">
+  <main>
+    <header class="masthead">
+      <h1>Hi, I'm Malik Danab!</h1>
+      <p>"The only thing better than playing games is making one."</p>
+    </header>
+    <div class="project-covers">
+      {covers.map((cover) => (
+        <a class="project-cover" href={cover.href}>
+          <div class="cover-image">
+            <img src={cover.img} alt={cover.title} loading="lazy" />
+          </div>
+          <div class="cover-details">
+            <div class="title">{cover.title}</div>
+            <div class="date">{cover.date}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>
