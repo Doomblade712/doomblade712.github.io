@@ -131,6 +131,57 @@ const navLinks = [
         event.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+
+      // Subtle synthesized UI sounds — no audio files needed.
+      // Browsers block audio until the first real interaction, so the context
+      // is created on pointerdown/keydown and hover ticks stay silent until then.
+      let audioCtx: AudioContext | null = null;
+      const unlockAudio = () => {
+        if (!audioCtx) {
+          audioCtx = new AudioContext();
+          // Once audio actually runs, remember it for the rest of the visit so
+          // later page loads can start sound without waiting for a click.
+          audioCtx.onstatechange = () => {
+            if (audioCtx?.state === 'running') sessionStorage.setItem('sound-unlocked', '1');
+          };
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        else if (audioCtx.state === 'running') sessionStorage.setItem('sound-unlocked', '1');
+      };
+      document.addEventListener('pointerdown', unlockAudio, { capture: true });
+      document.addEventListener('keydown', unlockAudio, { capture: true });
+      // Chromium carries user activation across same-site navigations, so after
+      // the visitor's first interaction anywhere on the site this succeeds on
+      // load; browsers that refuse just fall back to the listeners above.
+      if (sessionStorage.getItem('sound-unlocked')) unlockAudio();
+
+      const blip = (freq: number, duration: number, peak: number, type: OscillatorType = 'sine') => {
+        // Skip while suspended: scheduling then would stack sounds at time 0
+        // and release them all at once on the first click.
+        if (!audioCtx || audioCtx.state !== 'running') return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.6, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(peak, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      };
+
+      const interactive = 'a, button';
+      if (window.matchMedia('(hover: hover)').matches) {
+        document.addEventListener('mouseover', (event) => {
+          const target = (event.target as Element).closest(interactive);
+          const from = event.relatedTarget as Node | null;
+          if (target && (!from || !target.contains(from))) blip(1800, 0.05, 0.04);
+        });
+      }
+      document.addEventListener('click', (event) => {
+        if ((event.target as Element).closest(interactive)) blip(900, 0.09, 0.1, 'triangle');
+      });
     </script>
   </body>
 </html>
