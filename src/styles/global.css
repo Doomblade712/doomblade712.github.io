@@ -287,20 +287,6 @@ a {
   padding: 12px;
 }
 
-.splash-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  padding-top: 10px;
-}
-
-.splash-buttons .button-row {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-}
-
 @media (max-width: 768px) {
   .splash-title {
     font-size: 36px;
@@ -312,12 +298,6 @@ a {
 
   .splash-text {
     font-size: 15px;
-  }
-
-  .splash-buttons .button-row {
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
   }
 }
 

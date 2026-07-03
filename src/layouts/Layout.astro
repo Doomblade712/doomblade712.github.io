@@ -30,6 +30,7 @@ const navLinks = [
   { key: 'about-me', href: '/about-me', label: 'About Me' },
   { key: 'projects', href: '/projects', label: 'Projects' },
   { key: 'gamejams', href: '/gamejams', label: 'GameJams' },
+  { key: 'resume', href: '/resume.pdf', label: 'Résumé', newTab: true },
   { key: 'contact', href: '/contact', label: 'Contact' },
 ];
 ---
@@ -67,7 +68,12 @@ const navLinks = [
       </button>
       <nav class="nav-links" aria-label="Main">
         {navLinks.map((link) => (
-          <a href={link.href} class={active === link.key ? 'active' : undefined}>{link.label}</a>
+          <a
+            href={link.href}
+            class={active === link.key ? 'active' : undefined}
+            target={link.newTab ? '_blank' : undefined}
+            rel={link.newTab ? 'noopener' : undefined}
+          >{link.label}</a>
         ))}
       </nav>
       {!hideLogo && <a href="/" class="site-logo">Malik Danab</a>}
@@ -76,7 +82,11 @@ const navLinks = [
 
     <nav class="responsive-nav" id="mobile-nav" aria-label="Mobile">
       <button class="close-nav" aria-label="Close menu">&times;</button>
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      {navLinks.map((link) => (
+        <a href={link.href} target={link.newTab ? '_blank' : undefined} rel={link.newTab ? 'noopener' : undefined}>
+          {link.label}
+        </a>
+      ))}
     </nav>
 
     <slot />
