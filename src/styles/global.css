@@ -631,9 +631,31 @@ a {
   border-radius: 6px;
 }
 
-/* Smaller block for logo/hero images that shouldn't span the full page */
-.image-block.logo {
-  max-width: 480px;
+/* Logo image standing in for the page title, so content fits above the fold */
+.logo-title {
+  width: fit-content;
+  margin: 10px auto 20px;
+}
+
+.page-header-logo {
+  display: block;
+  flex: 0 0 auto;
+  max-width: 200px;
+  padding: 10px;
+  background: var(--text-panel);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.page-header-logo:hover {
+  background: var(--panel-hover);
+}
+
+.page-header-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
 }
 
 .video-block {
