@@ -23,7 +23,7 @@ const steamLink = 'https://store.steampowered.com/app/4642060/InVein/';
           <a href={steamLink} target="_blank" rel="noopener">InVein</a> is a psychological horror
           game where you play as a patient exploring a disturbing, ever-changing hospital, relying
           on a limited IV supply to stay alive. As you move through rooms, solve puzzles, and
-          uncover unsettling clues, reality begins to break down &mdash; and the staff becomes
+          uncover unsettling clues, reality begins to break down, and the staff becomes
           something far more dangerous.
         </div>
         <div>Engine &amp; Tools: Unreal Engine 5, Perforce</div>
@@ -47,10 +47,10 @@ const steamLink = 'https://store.steampowered.com/app/4642060/InVein/';
     <div class="text-block">
       <h3 class="sub-title">Radio &amp; Dynamic Sound System</h3>
       <div>
-        I built and integrated the radio and the dynamic sound system that drive the game's
-        atmospheric tension: reactive audio cues that respond to what's happening around the
-        player rather than playing on fixed triggers. In a horror game the audio <em>is</em> the
-        pacing, so this system does a lot of the scare work.
+        I built and integrated the radio and the dynamic sound system behind the game's
+        atmosphere. Instead of playing sounds on fixed triggers, the system reacts to what's
+        happening around the player. Audio carries most of the pacing in a horror game, so this
+        system does a lot of the scare work.
       </div>
     </div>
 
@@ -59,16 +59,16 @@ const steamLink = 'https://store.steampowered.com/app/4642060/InVein/';
       <div>
         I programmed the gamma correction and rendering stability features that keep the game's
         carefully-tuned darkness readable and consistent across different monitors and hardware
-        configurations &mdash; critical when the entire game lives in low light.
+        setups. That matters a lot in a game where almost everything happens in low light.
       </div>
     </div>
 
     <div class="text-block">
       <h3 class="sub-title">Debugging the Reality Shifts</h3>
       <div>
-        The hospital rearranges itself around the player. I did deep debugging across these
-        reality-shifting sequences, isolating performance and state-synchronization issues in the
-        game's most complex moments.
+        The hospital rearranges itself around the player. I spent a lot of time debugging these
+        reality-shifting sequences, tracking down performance and state-sync issues in some of
+        the hardest parts of the game to get right.
       </div>
     </div>
   </main>

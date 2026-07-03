@@ -30,7 +30,7 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
           &bull; Implemented a flow field combined with break-cost scoring so enemies
           intelligently route through or around tower clusters<br />
           &bull; Data-driven design using ScriptableObjects for towers, enemies, cards, and
-          keywords, letting designers tune the game without touching code
+          keywords, so the game can be tuned without code changes
         </div>
         <div>Tools: Unity 6, C#, Photoshop, Aseprite, GitHub</div>
       </div>
@@ -53,18 +53,18 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
           the nexus outward every frame. Instead of each enemy running its own pathfinding query, a
           single global grid stores the optimal move direction and cost-to-goal for every cell.
           Enemies read the direction from the cell they occupy and step toward the lowest-cost
-          neighbor. This scales to hundreds of simultaneous enemies with zero per-entity
-          pathfinding overhead.
+          neighbor. This scales to hundreds of enemies at once without any per-enemy
+          pathfinding cost.
         </div>
         <div>
           The more interesting design problem was towers. Treating a placed tower as a hard wall
           forces enemies into long, predictable detours and removes meaningful player decisions
           about where to place. Instead, each tower is a traversable obstacle with a dynamic break
           cost. The base cost to walk through a tower is roughly 1.5 normal steps, but drops by 30%
-          for each enemy already attacking it. The cooperative discount creates emergent group
-          behavior: the third enemy approaching a tower finds it cheaper to join the attack than to
-          detour around it. When a tower hits its attacker cap, its cost spikes to 200, routing all
-          new enemies away.
+          for each enemy already attacking it. That discount creates group behavior on its own.
+          The third enemy approaching a tower finds it cheaper to join the attack than to walk
+          around it. When a tower hits its attacker cap, its cost spikes to 200, routing all new
+          enemies away.
         </div>
         <div>
           Two additional layers shape cell selection without any flocking logic: an occupancy
@@ -90,8 +90,8 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
       <div class="text-block">
         <h3 class="sub-title">Card Feel &amp; Placement</h3>
         <div>
-          Cards are standard Unity UI objects, but the goal was to make interactions feel
-          deliberate and tactile rather than purely functional. Dragging a card above a vertical
+          Cards are standard Unity UI objects, but I put a lot of work into making them feel
+          good to handle, not just functional. Dragging a card above a vertical
           screen threshold triggers a mode shift: the card locks to a canvas arc position, a
           placement ghost spawns on the grid using the tower's actual visual prefab, and AOE
           preview tiles appear color-scaled by damage value. The ghost tints red or green to
@@ -143,13 +143,12 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
         pipeline is unchanged.
       </div>
       <div>
-        Cancellation required specific design work. The Discard keyword is asynchronous: the player
+        Cancellation took some extra design work. The Discard keyword is asynchronous: the player
         clicks cards to discard and can press Escape to abort. When a handler sets a cancel flag on
         the context, the executor breaks the chain and fires an onCancelled callback, which refunds
         energy and returns the card to hand. No handler knows what comes before or after it in the
-        chain. The separation between keyword definition (ScriptableObject data), execution order
-        (CardInfo list), and behavior (registered handlers) means new cards can be authored without
-        touching existing handler code.
+        chain. Since the keyword data, the execution order, and the behavior all live in separate
+        places, new cards can be added without editing any existing handler code.
       </div>
     </div>
 
@@ -157,15 +156,15 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
       <h3 class="sub-title">ECS / DOTS Simulation Core</h3>
       <div>
         FourSight's simulation layer, including enemies, towers, pathfinding, combat, and health,
-        runs on Unity's Entity Component System (DOTS). The decision was intentional: a wave of 80
+        runs on Unity's Entity Component System (DOTS). I went with DOTS because a wave of 80
         to 100 enemies alongside 20+ active towers generates thousands of component queries per
         frame, and DOTS's cache-friendly data layout keeps those queries fast without low-level
         manual optimization.
       </div>
       <div>
-        All component types are defined in a single file, Components.cs. This was a deliberate
-        choice to keep the data schema visible in one place rather than scattered across feature
-        folders. Any engineer can see every piece of simulation state from one file. The 26+ ECS
+        All component types are defined in a single file, Components.cs. I kept it that way so
+        the whole data schema stays visible in one place instead of being scattered across
+        feature folders. The 26+ ECS
         systems run in an explicitly declared execution order. As one example: all spawn systems
         are ordered after EnemyCleanupSystem so that dead entities are already removed from queries
         before wave-completion checks fire. Damage is always deferred: systems write DamageEvent
@@ -177,8 +176,8 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
         managed object references inside components, keeping Burst compilation available on the
         simulation hot path. The SimulationAnimationEvents hub raises six typed events (attacked,
         hurt, and died, for both towers and enemies) that visual sync systems subscribe to. No ECS
-        system knows anything about GameObjects, renderers, or animations. That boundary is clean
-        by design.
+        system knows anything about GameObjects, renderers, or animations, and I was strict about
+        keeping that boundary in place.
       </div>
     </div>
   </main>
