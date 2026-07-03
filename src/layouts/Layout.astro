@@ -9,6 +9,8 @@ interface Props {
   active?: string;
   /** Image (site-root path) used for link previews on LinkedIn/Discord/etc. */
   image?: string;
+  /** Hide the name in the header (the home page already shows it as the splash title). */
+  hideLogo?: boolean;
 }
 
 const {
@@ -16,6 +18,7 @@ const {
   description = 'Gameplay Programmer and Technical Designer specializing in C#, C++, and UE5. Explore my portfolio featuring solo projects like FourSight and technical sound design for InVein.',
   active = '',
   image = '/images/malik-danab-1.webp',
+  hideLogo = false,
 } = Astro.props;
 
 // Pages deploy as folders, so the served URL always ends in a slash.
@@ -67,7 +70,7 @@ const navLinks = [
           <a href={link.href} class={active === link.key ? 'active' : undefined}>{link.label}</a>
         ))}
       </nav>
-      <a href="/" class="site-logo">Malik Danab</a>
+      {!hideLogo && <a href="/" class="site-logo">Malik Danab</a>}
       <SocialLinks />
     </header>
 
