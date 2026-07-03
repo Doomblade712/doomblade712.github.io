@@ -631,6 +631,11 @@ a {
   border-radius: 6px;
 }
 
+/* Smaller block for logo/hero images that shouldn't span the full page */
+.image-block.logo {
+  max-width: 480px;
+}
+
 .video-block {
   max-width: 800px;
   margin: 0 auto 20px;
