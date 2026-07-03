@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Malik_Danab_Resume</title>
+<style>
+  @page { size: letter; margin: 0.5in 0.75in 0.5in 0.75in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { font-family: Arial, Helvetica, sans-serif; color: #202124; font-size: 10pt; line-height: 1.32; }
+  a { color: #1155cc; text-decoration: underline; }
+
+  .name { font-size: 20pt; font-weight: bold; letter-spacing: 0.2pt; }
+  .contact { font-size: 10pt; margin-top: 2pt; }
+  .contact .sep { color: #444; padding: 0 3pt; }
+
+  .section { margin-top: 11pt; }
+  .section-title {
+    font-size: 8pt; font-weight: bold; text-transform: uppercase;
+    letter-spacing: 0.6pt; color: #202124;
+    border-bottom: 0.75pt solid #d0d0d0; padding-bottom: 3pt; margin-bottom: 7pt;
+  }
+
+  .entry { margin-bottom: 9pt; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-head { display: flex; align-items: baseline; }
+  .entry-name { font-size: 11.5pt; font-weight: bold; }
+  .entry-meta { font-size: 8.5pt; color: #5f6368; margin-left: 4pt; }
+  .entry-role { font-size: 9.5pt; color: #5f6368; margin-left: 8pt; }
+  .entry-link { margin-left: auto; font-size: 7.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.4pt; }
+
+  ul.bullets { list-style: none; margin-top: 2pt; }
+  ul.bullets li { padding-left: 13pt; position: relative; margin-top: 2.5pt; font-size: 9.5pt; }
+  ul.bullets li::before { content: "\25B8"; position: absolute; left: 1pt; font-size: 8.5pt; color: #202124; }
+
+  .stack-line { font-size: 9.5pt; margin-top: 2.5pt; }
+  .stack-line .k { }
+
+  .two-col { display: flex; gap: 20pt; margin-top: 11pt; }
+  .two-col .col { flex: 1; }
+  .two-col .col-edu { flex: 0 0 53%; }
+
+  .edu-school { font-size: 10.5pt; font-weight: bold; }
+  .edu-when { font-size: 8pt; color: #5f6368; margin-left: 6pt; font-weight: normal; white-space: nowrap; }
+  .edu-line { font-size: 9pt; color: #3c4043; margin-top: 1.5pt; }
+
+  .award { margin-bottom: 8pt; }
+  .award-title { font-size: 9pt; font-weight: bold; }
+  .award-desc { font-size: 9pt; color: #3c4043; margin-top: 1pt; }
+</style>
+</head>
+<body>
+
+<div class="name">Malik Danab</div>
+<div class="contact">Junior Gameplay Programmer <span class="sep">|</span> Email: mtd.danab@gmail.com <span class="sep">|</span> <a href="https://www.linkedin.com/in/malikdanab/">LinkedIn</a> <span class="sep">|</span> <a href="https://malikdanab.com/">Portfolio</a></div>
+
+<div class="section">
+  <div class="section-title">Summary</div>
+  <div>
+    Junior gameplay programmer working in C# and C++, with shipped games as a solo developer and
+    on teams. Focused on systems work: combat, AI, pathfinding, and data pipelines that let
+    designers tune a game without code changes.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Game Projects</div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-name">FourSight</span>
+      <span class="entry-meta">(Unity 6, C#, DOTS / ECS)</span>
+      <span class="entry-role">Solo Developer</span>
+      <a class="entry-link" href="https://malikdanab.itch.io/foursight">Released on itch.io</a>
+    </div>
+    <ul class="bullets">
+      <li>Built the simulation core on Unity DOTS (ECS): towers, enemies, combat, and pathfinding
+        run as independently scheduled, Burst-compiled systems.</li>
+      <li>Wrote a backward Dijkstra flow field pathfinder that rebuilds as towers are placed or
+        destroyed, with per-tower break costs that produce group attack behavior without any
+        flocking logic.</li>
+      <li>Connected the DOTS simulation to the MonoBehaviour presentation layer through static C#
+        events, driving companion GameObjects, audio, and a custom sprite animation pipeline from
+        Burst code.</li>
+      <li>Built a data-driven card system where keyword chains defined in ScriptableObjects handle
+        card effects, so new cards can be authored entirely from the Inspector.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-name">InVein</span>
+      <span class="entry-meta">(Unreal Engine 5, C++)</span>
+      <span class="entry-role">Gameplay and Sound Programmer</span>
+      <a class="entry-link" href="https://store.steampowered.com/app/4642060/InVein/">Released on Steam</a>
+    </div>
+    <ul class="bullets">
+      <li>Built and integrated the radio and the dynamic sound system. Instead of firing on fixed
+        triggers, audio reacts to what is happening around the player and carries much of the
+        game's pacing.</li>
+      <li>Programmed the gamma correction and rendering stability features that keep the game's
+        darkness readable and consistent across monitors and hardware setups.</li>
+      <li>Debugged the reality-shifting sequences, tracking down performance and state-sync issues
+        in some of the hardest parts of the game to get right.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-name">FinalPrice Chrome Extension</span>
+      <span class="entry-meta">(JavaScript, Manifest V3)</span>
+      <span class="entry-role">Sole Developer</span>
+      <a class="entry-link" href="https://chromewebstore.google.com/detail/finalprice/nenadidhmomacjknlfgcceokgmegkkhk">Published</a>
+    </div>
+    <ul class="bullets">
+      <li>Built a Chrome extension that detects prices on shopping sites and shows the real,
+        tax-included total before you buy.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Experience</div>
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-name">Telestream</span>
+      <span class="entry-role">Sherpa Engineering Intern, May 2022 &ndash; August 2022</span>
+    </div>
+    <ul class="bullets">
+      <li>Worked on .NET applications and SQL databases for video conferencing software, diagnosed
+        performance issues alongside senior engineers, and shipped fixes into production.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Technical Stack</div>
+  <div class="stack-line">languages: C#, C++, Java, Python, HTML, Lua</div>
+  <div class="stack-line">engines/tools: Unreal Engine 5, Unity, GameMaker, Panda3D, Houdini, Git, Perforce, Maya, Rhino 5, Aseprite</div>
+  <div class="stack-line">pipelines/ecosystems: .NET, SQL, Adobe Suite</div>
+</div>
+
+<div class="two-col">
+  <div class="col col-edu">
+    <div class="section-title">Education</div>
+    <div class="edu-school">The University of Texas at Dallas <span class="edu-when">Graduated May 2025</span></div>
+    <div class="edu-line">B.A. Arts, Technology, and Emerging Communication</div>
+    <div class="edu-line">Concentration: Animation and Game Design</div>
+  </div>
+  <div class="col">
+    <div class="section-title">Awards &amp; Leadership</div>
+    <div class="award">
+      <div class="award-title">1st Place, AIS UTD Build &amp; Pitch Hackathon</div>
+      <div class="award-desc">Built a working prototype and pitched the mechanics and business case
+        on a tight deadline.</div>
+    </div>
+    <div class="award">
+      <div class="award-title">President, Magic: The Gathering Club at UTD</div>
+      <div class="award-desc">Handled vendor relations and club funds, and ran weekly draft and
+        game night events.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
