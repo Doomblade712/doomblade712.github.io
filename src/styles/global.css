@@ -623,7 +623,7 @@ a {
   transition: background 0.2s ease;
 }
 
-.image-block:hover {
+.image-block:not(.diagram-block):hover {
   background: var(--panel-hover);
 }
 
