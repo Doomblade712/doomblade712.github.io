@@ -7,13 +7,21 @@ interface Props {
   description?: string;
   /** Which nav link to highlight: 'about-me' | 'projects' | 'gamejams' | 'contact' */
   active?: string;
+  /** Image (site-root path) used for link previews on LinkedIn/Discord/etc. */
+  image?: string;
 }
 
 const {
   title,
-  description = 'Gameplay Programmer and Technical Designer specializing in C#, C++, and UE5. Explore my portfolio featuring solo projects like Foursight and technical sound design for InVein.',
+  description = 'Gameplay Programmer and Technical Designer specializing in C#, C++, and UE5. Explore my portfolio featuring solo projects like FourSight and technical sound design for InVein.',
   active = '',
+  image = '/images/malik-danab-1.webp',
 } = Astro.props;
+
+// Pages deploy as folders, so the served URL always ends in a slash.
+const canonicalPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(canonicalPath, Astro.site);
+const socialImage = new URL(image, Astro.site);
 
 const navLinks = [
   { key: 'about-me', href: '/about-me', label: 'About Me' },
@@ -29,6 +37,18 @@ const navLinks = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Malik Danab" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/images/favicon.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,7 +59,7 @@ const navLinks = [
   </head>
   <body>
     <header class="site-header">
-      <button class="hamburger" aria-label="Open menu">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <i></i><i></i><i></i>
       </button>
       <nav class="nav-links" aria-label="Main">
@@ -51,7 +71,7 @@ const navLinks = [
       <SocialLinks />
     </header>
 
-    <nav class="responsive-nav" aria-label="Mobile">
+    <nav class="responsive-nav" id="mobile-nav" aria-label="Mobile">
       <button class="close-nav" aria-label="Close menu">&times;</button>
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
@@ -60,7 +80,7 @@ const navLinks = [
 
     <footer class="site-footer">
       <SocialLinks />
-      <div class="copyright">&copy; 2026 by Malik Danab</div>
+      <div class="copyright">&copy; {new Date().getFullYear()} by Malik Danab</div>
     </footer>
 
     <a href="#top" class="back-to-top" aria-label="Back to top">
@@ -71,9 +91,24 @@ const navLinks = [
 
     <script>
       const panel = document.querySelector('.responsive-nav');
-      document.querySelector('.hamburger')?.addEventListener('click', () => panel?.classList.add('open'));
-      document.querySelector('.close-nav')?.addEventListener('click', () => panel?.classList.remove('open'));
-      panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => panel.classList.remove('open')));
+      const hamburger = document.querySelector<HTMLButtonElement>('.hamburger');
+      const closeNav = document.querySelector<HTMLButtonElement>('.close-nav');
+      const openMenu = () => {
+        panel?.classList.add('open');
+        hamburger?.setAttribute('aria-expanded', 'true');
+        closeNav?.focus();
+      };
+      const closeMenu = (refocus = true) => {
+        panel?.classList.remove('open');
+        hamburger?.setAttribute('aria-expanded', 'false');
+        if (refocus) hamburger?.focus();
+      };
+      hamburger?.addEventListener('click', openMenu);
+      closeNav?.addEventListener('click', () => closeMenu());
+      panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => closeMenu(false)));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && panel?.classList.contains('open')) closeMenu();
+      });
 
       const backToTop = document.querySelector('.back-to-top');
       const toggleBackToTop = () => backToTop?.classList.toggle('visible', window.scrollY > 300);

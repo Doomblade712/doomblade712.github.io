@@ -1,8 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-<Layout title="Malik Danab - About Me" active="about-me">
+<Layout
+  title="Malik Danab - About Me"
+  description="Malik Danab is a Gameplay Programmer and Technical Designer working in C#, C++, Unity, and Unreal Engine 5, with an ATEC degree from UT Dallas."
+  active="about-me"
+>
   <main class="page-modules">
+    <h1 class="page-title">About Me</h1>
     <div class="text-block">
       <div>
         I'm Malik Danab, a Gameplay Programmer and Technical Designer who just finished my degree
@@ -13,13 +18,26 @@ import Layout from '../layouts/Layout.astro';
       <div>
         My background allows me to bridge the gap between high-level design and low-level logic.
         Whether I'm engineering a custom Entity Component System (ECS) for my solo project
-        Foursight or implementing immersive sound systems for the psychological horror game InVein,
+        FourSight or implementing immersive sound systems for the psychological horror game InVein,
         my goal is to build mechanics that are as stable as they are responsive.
       </div>
       <div>
         When I'm not in an IDE, I'm likely "researching game design" by playing Magic: The
         Gathering, Slay the Spire, or playing DND.
       </div>
+      <div>
+        <a href="/resume.pdf" target="_blank" rel="noopener">Download my r&eacute;sum&eacute; (PDF)</a>
+      </div>
+    </div>
+
+    <div class="text-block">
+      <h2 class="title">Skills</h2>
+      <div><strong>Languages:</strong> C#, C, Java, Python, HTML, Lua</div>
+      <div>
+        <strong>Engines &amp; Tools:</strong> Unreal Engine 5, Unity, GameMaker, Houdini, Git,
+        Perforce, Maya, Rhino 5, Aseprite
+      </div>
+      <div><strong>Pipelines &amp; Ecosystems:</strong> .NET, SQL, Adobe Suite</div>
     </div>
   </main>
 </Layout>

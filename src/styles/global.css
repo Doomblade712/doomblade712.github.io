@@ -232,6 +232,21 @@ a {
   text-align: center;
 }
 
+.splash-text p {
+  margin: 0 0 16px;
+}
+
+.splash-text p:last-child {
+  margin-bottom: 0;
+}
+
+.splash-role {
+  color: var(--text-light);
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
 .splash-portrait {
   width: 69%;
 }
@@ -324,6 +339,41 @@ a {
 
   .masthead p {
     font-size: 14px;
+  }
+}
+
+/* Featured work strip on the homepage */
+.featured {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 5% 50px;
+}
+
+.featured-heading {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 35px;
+  line-height: 42px;
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+
+.featured .project-covers {
+  padding: 20px 0 0;
+}
+
+.cover-hook {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 14px;
+  line-height: 19px;
+  padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .featured-heading {
+    font-size: 24px;
+    line-height: 30px;
   }
 }
 
@@ -434,12 +484,65 @@ a {
   }
 }
 
+/* Touch screens have no hover — show the title/date below each cover instead */
+@media (hover: none) {
+  .cover-image::after {
+    display: none;
+  }
+
+  .cover-details {
+    position: static;
+    opacity: 1;
+    padding: 10px 0 4px;
+  }
+
+  .cover-details .title,
+  .cover-details .date {
+    color: var(--text-light);
+  }
+
+  .cover-details .date {
+    padding-top: 4px;
+  }
+}
+
 /* ==========================================================================
    Standard content pages (About, Contact, project detail pages)
    ========================================================================== */
 
 .page-modules {
   padding: 20px 5% 40px;
+}
+
+/* Page heading on About / Contact / project detail pages */
+.page-title {
+  text-align: center;
+  font-size: 35px;
+  line-height: 42px;
+  font-weight: 400;
+  margin: 10px 0 20px;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+
+/* Role / engine / release line shown directly under a page title */
+.page-subtitle {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 18px;
+  line-height: 1.4;
+  margin: -10px 0 25px;
+}
+
+@media (max-width: 768px) {
+  .page-subtitle {
+    font-size: 15px;
+  }
 }
 
 .text-block {
@@ -463,13 +566,15 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   padding: 20px 0;
+  margin: 0;
 }
 
 .text-block .sub-title {
   font-size: 20px;
   line-height: 25px;
   font-weight: 700;
-  padding: 20px 0;
+  padding: 20px 0 0;
+  margin: 0;
 }
 
 .text-block.text-left {

@@ -2,18 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 
 const covers = [
-  { href: '/sales-tax-calculator', img: '/images/cover-finalprice.png', title: 'FinalPrice', date: '2026' },
-  { href: '/invein', img: '/images/cover-invein.png', title: 'InVein', date: '2026' },
-  { href: '/foursight', img: '/images/cover-foursight.jpg', title: 'FourSight', date: '2026' },
-  { href: '/ephemeral-dust', img: '/images/cover-ephemeral-dust.png', title: 'Ephemeral Dust', date: '2022' },
-  { href: '/shroom-boom', img: '/images/cover-shroom-boom.png', title: 'Shroom Boom', date: '2020' },
-  { href: '/austere', img: '/images/cover-austere.png', title: 'Austere', date: '2025' },
+  { href: '/invein', img: '/images/cover-invein.webp', title: 'InVein', date: '2026', hook: 'Sound & gameplay systems · Released on Steam' },
+  { href: '/foursight', img: '/images/cover-foursight.jpg', title: 'FourSight', date: '2026', hook: 'Solo dev · Unity DOTS roguelike tower defense' },
+  { href: '/sales-tax-calculator', img: '/images/cover-finalprice.webp', title: 'FinalPrice', date: '2026', hook: 'Chrome extension · Published on the Web Store' },
 ];
 ---
-<Layout title="Malik Danab - Projects" active="projects">
+<Layout
+  title="Malik Danab - Projects"
+  description="Released projects by Malik Danab: InVein (psychological horror on Steam), FourSight (solo Unity DOTS tower defense), and FinalPrice (Chrome extension)."
+  active="projects"
+>
   <main>
     <header class="masthead">
-      <h1>Hi, I'm Malik Danab!</h1>
+      <h1>Projects</h1>
       <p>"The only thing better than playing games is making one."</p>
     </header>
     <div class="project-covers">
@@ -26,6 +27,7 @@ const covers = [
             <div class="title">{cover.title}</div>
             <div class="date">{cover.date}</div>
           </div>
+          <div class="cover-hook">{cover.hook}</div>
         </a>
       ))}
     </div>

@@ -1,5 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const featured = [
+  {
+    href: '/invein',
+    img: '/images/cover-invein.webp',
+    title: 'InVein',
+    date: '2026',
+    hook: 'Sound & gameplay systems · Released on Steam',
+  },
+  {
+    href: '/foursight',
+    img: '/images/cover-foursight.jpg',
+    title: 'FourSight',
+    date: '2026',
+    hook: 'Solo dev · Unity DOTS roguelike tower defense',
+  },
+  {
+    href: '/sales-tax-calculator',
+    img: '/images/cover-finalprice.webp',
+    title: 'FinalPrice',
+    date: '2026',
+    hook: 'Chrome extension · Published on the Web Store',
+  },
+];
 ---
 <Layout title="Malik Danab">
   <main class="splash">
@@ -7,18 +31,22 @@ import Layout from '../layouts/Layout.astro';
       <h1 class="splash-title">Malik Danab</h1>
       <div class="splash-columns">
         <div class="splash-text">
-          A detail-oriented and experienced professional with a strong academic background and
-          hands-on experience in software development. With a degree in ATEC(Art's, Technology, and
-          Emerging Communication with a Concentration in Animation &amp; Game Design) from the
-          University of Texas at Dallas, I have gained knowledge and expertise in various
-          programming languages, multimedia design, and user-centered design methodologies.
+          <p class="splash-role">Gameplay Programmer &amp; Technical Designer</p>
+          <p>
+            C#, C++, Unity, and Unreal Engine 5. I shipped the psychological horror game
+            <a href="/invein">InVein</a> on Steam and built the deck-building tower defense
+            <a href="/foursight">FourSight</a> solo on Unity DOTS.
+          </p>
         </div>
         <div>
-          <img class="splash-portrait" src="/images/malik-danab-1.png" alt="Malik Danab" />
+          <img class="splash-portrait" src="/images/malik-danab-1.webp" alt="Malik Danab" width="1046" height="941" />
         </div>
       </div>
       <div class="splash-buttons">
-        <a class="pill-button" href="/about-me">About Me</a>
+        <div class="button-row">
+          <a class="pill-button" href="/about-me">About Me</a>
+          <a class="pill-button" href="/resume.pdf" target="_blank" rel="noopener">R&eacute;sum&eacute;</a>
+        </div>
         <div class="button-row">
           <a class="pill-button" href="/projects">My Projects</a>
           <a class="pill-button" href="/gamejams">My GameJams</a>
@@ -26,4 +54,22 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </main>
+
+  <section class="featured">
+    <h2 class="featured-heading">Featured Work</h2>
+    <div class="project-covers featured-covers">
+      {featured.map((item) => (
+        <a class="project-cover" href={item.href}>
+          <div class="cover-image">
+            <img src={item.img} alt={item.title} loading="lazy" />
+          </div>
+          <div class="cover-details">
+            <div class="title">{item.title}</div>
+            <div class="date">{item.date}</div>
+          </div>
+          <div class="cover-hook">{item.hook}</div>
+        </a>
+      ))}
+    </div>
+  </section>
 </Layout>

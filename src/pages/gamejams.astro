@@ -2,16 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 
 const covers = [
-  { href: '/surviving-vampire', img: '/images/cover-surviving-vampire.png', title: 'Surviving Vampire', date: '2023' },
-  { href: '/intaglio', img: '/images/cover-intaglio.png', title: 'Intaglio', date: '2024' },
-  { href: '/wildfire-warfare', img: '/images/cover-wildfire-warfare.png', title: 'Wildfire Warfare', date: '2024' },
-  { href: '/trash-mammal', img: '/images/cover-trash-mammal.png', title: 'Trash Mammal', date: '2022' },
+  { href: '/surviving-vampire', img: '/images/cover-surviving-vampire.webp', title: 'Surviving Vampire', date: '2023', hook: 'Tower defense · Unity' },
+  { href: '/intaglio', img: '/images/cover-intaglio.webp', title: 'Intaglio', date: '2024', hook: 'Speedrunning · Unreal Engine' },
+  { href: '/wildfire-warfare', img: '/images/cover-wildfire-warfare.webp', title: 'Wildfire Warfare', date: '2024', hook: 'RTS puzzle · Unity' },
+  { href: '/trash-mammal', img: '/images/cover-trash-mammal.webp', title: 'Trash Mammal', date: '2022', hook: 'Stealth puzzle · Unreal Engine' },
 ];
 ---
-<Layout title="Malik Danab - GameJams" active="gamejams">
+<Layout
+  title="Malik Danab - GameJams"
+  description="Game jam projects by Malik Danab: Surviving Vampire, Intaglio, Wildfire Warfare, and Trash Mammal."
+  active="gamejams"
+>
   <main>
     <header class="masthead">
-      <h1>A collection of My GameJams's</h1>
+      <h1>A collection of my GameJams</h1>
       <p>"The only thing better than playing games is making one."</p>
     </header>
     <div class="project-covers">
@@ -24,6 +28,7 @@ const covers = [
             <div class="title">{cover.title}</div>
             <div class="date">{cover.date}</div>
           </div>
+          <div class="cover-hook">{cover.hook}</div>
         </a>
       ))}
     </div>
