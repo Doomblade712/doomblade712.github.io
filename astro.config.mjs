@@ -9,5 +9,7 @@ export default defineConfig({
   redirects: {
     // the old Adobe Portfolio home URL, kept so existing links don't break
     '/malik-danab': '/',
+    // the Chrome Web Store listing links here; keep it working forever
+    '/sales-tax-calculator': '/finalprice',
   },
 });
