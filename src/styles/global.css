@@ -27,6 +27,14 @@ body {
   font-family: var(--font-main);
   color: var(--text-light);
   -webkit-font-smoothing: antialiased;
+  /* Lifts light text off the busy starfield; inherits everywhere */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+/* No shadow where text sits on a light background */
+.pill-button,
+.cover-details {
+  text-shadow: none;
 }
 
 img {
