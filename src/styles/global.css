@@ -38,17 +38,27 @@ body {
   text-shadow: none;
 }
 
-/* Faded dark panel behind text so it stays readable over the starfield */
+/* Faded dark panel behind every content block so nothing sits bare on the
+   starfield. Full-width bars (header/footer) get the same color, no radius. */
 .text-block,
 .masthead,
 .splash-text,
+.splash-title,
+.splash-portrait,
 .page-title,
 .page-subtitle,
 .featured-heading,
-.cover-hook,
+.image-block,
+.video-block,
+.project-cover,
 .contact-form {
   background: var(--text-panel);
   border-radius: 10px;
+}
+
+.site-header,
+.site-footer {
+  background: var(--text-panel);
 }
 
 img {
@@ -232,7 +242,9 @@ a {
   font-size: 60px;
   line-height: 1;
   font-weight: 700;
-  margin: 0 0 25px;
+  width: fit-content;
+  margin: 0 auto 25px;
+  padding: 14px 34px;
 }
 
 .splash-columns {
@@ -272,6 +284,7 @@ a {
 
 .splash-portrait {
   width: 69%;
+  padding: 12px;
 }
 
 .splash-buttons {
@@ -423,6 +436,7 @@ a {
   width: calc(33.3333% - 14px);
   margin-right: 21px;
   margin-bottom: 21px;
+  padding: 10px;
 }
 
 .project-cover:nth-child(3n) {
@@ -432,6 +446,7 @@ a {
 .cover-image {
   position: relative;
   overflow: hidden;
+  border-radius: 6px;
 }
 
 /* 3:4 portrait covers, like the original */
@@ -465,7 +480,7 @@ a {
 
 .cover-details {
   position: absolute;
-  inset: 0;
+  inset: 10px;
   z-index: 1;
   padding-top: 8%;
   text-align: center;
@@ -520,13 +535,11 @@ a {
     display: none;
   }
 
+  /* The card itself is the panel now — details just stack below the image */
   .cover-details {
     position: static;
     opacity: 1;
-    padding: 10px 12px 8px;
-    background: var(--text-panel);
-    border-radius: 10px;
-    margin-top: 8px;
+    padding: 10px 4px 2px;
   }
 
   .cover-details .title,
@@ -628,14 +641,18 @@ a {
 
 .image-block {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 0 0 20px;
+  margin: 0 auto 20px;
+  padding: 12px;
+}
+
+.image-block img {
+  border-radius: 6px;
 }
 
 .video-block {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 0 0 20px;
+  margin: 0 auto 20px;
+  padding: 12px;
 }
 
 .video-block .video-frame {
@@ -650,6 +667,7 @@ a {
   width: 100%;
   height: 100%;
   border: 0;
+  border-radius: 6px;
 }
 
 .module-columns {
@@ -733,7 +751,8 @@ a {
    ========================================================================== */
 
 .site-footer {
-  padding: 50px 5% 100px;
+  margin-top: 30px;
+  padding: 40px 5% 60px;
   text-align: center;
   font-size: 16px;
   line-height: 20px;
