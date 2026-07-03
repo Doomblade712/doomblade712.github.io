@@ -11,6 +11,7 @@
   --text-soft: #c0c6cc;
   --text-dark: #222;
   --panel-bg: #222;
+  --text-panel: rgba(12, 12, 16, 0.6);
 }
 
 * {
@@ -35,6 +36,19 @@ body {
 .pill-button,
 .cover-details {
   text-shadow: none;
+}
+
+/* Faded dark panel behind text so it stays readable over the starfield */
+.text-block,
+.masthead,
+.splash-text,
+.page-title,
+.page-subtitle,
+.featured-heading,
+.cover-hook,
+.contact-form {
+  background: var(--text-panel);
+  border-radius: 10px;
 }
 
 img {
@@ -238,6 +252,7 @@ a {
   font-size: 19px;
   line-height: 1.45;
   text-align: center;
+  padding: 20px 22px;
 }
 
 .splash-text p {
@@ -319,7 +334,10 @@ a {
    ========================================================================== */
 
 .masthead {
-  padding: 50px 5% 30px;
+  width: fit-content;
+  max-width: 90%;
+  margin: 30px auto 0;
+  padding: 26px 36px;
   text-align: center;
 }
 
@@ -363,7 +381,9 @@ a {
   font-size: 35px;
   line-height: 42px;
   font-weight: 400;
-  margin: 0 0 10px;
+  width: fit-content;
+  margin: 0 auto 10px;
+  padding: 6px 28px;
 }
 
 .featured .project-covers {
@@ -375,7 +395,9 @@ a {
   color: var(--text-soft);
   font-size: 14px;
   line-height: 19px;
-  padding-top: 10px;
+  width: fit-content;
+  margin: 10px auto 0;
+  padding: 4px 12px;
 }
 
 @media (max-width: 768px) {
@@ -501,7 +523,10 @@ a {
   .cover-details {
     position: static;
     opacity: 1;
-    padding: 10px 0 4px;
+    padding: 10px 12px 8px;
+    background: var(--text-panel);
+    border-radius: 10px;
+    margin-top: 8px;
   }
 
   .cover-details .title,
@@ -528,7 +553,9 @@ a {
   font-size: 35px;
   line-height: 42px;
   font-weight: 400;
-  margin: 10px 0 20px;
+  width: fit-content;
+  margin: 10px auto 20px;
+  padding: 6px 26px;
 }
 
 @media (max-width: 768px) {
@@ -544,7 +571,9 @@ a {
   color: var(--text-soft);
   font-size: 18px;
   line-height: 1.4;
-  margin: -10px 0 25px;
+  width: fit-content;
+  margin: -10px auto 25px;
+  padding: 4px 18px;
 }
 
 @media (max-width: 768px) {
@@ -555,8 +584,8 @@ a {
 
 .text-block {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px 0 40px;
+  margin: 0 auto 20px;
+  padding: 20px 26px 30px;
   font-size: 18px;
   line-height: 24px;
   text-align: center;
@@ -655,8 +684,8 @@ a {
 /* Contact form */
 .contact-form {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px 0 40px;
+  margin: 0 auto 20px;
+  padding: 20px 26px 34px;
   text-align: left;
 }
 
