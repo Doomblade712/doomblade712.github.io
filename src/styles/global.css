@@ -631,6 +631,13 @@ a {
   border-radius: 6px;
 }
 
+/* Inline SVG architecture diagrams (FourSight) */
+.diagram-block svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Logo image standing in for the page title, so content fits above the fold */
 .logo-title {
   width: fit-content;
