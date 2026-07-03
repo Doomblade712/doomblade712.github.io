@@ -285,6 +285,11 @@ a {
 .splash-portrait {
   width: 69%;
   padding: 12px;
+  transition: background 0.2s ease;
+}
+
+.splash-portrait:hover {
+  background: var(--panel-hover);
 }
 
 @media (max-width: 768px) {
@@ -595,18 +600,31 @@ a {
   text-align: left;
 }
 
+/* Comfortable reading width for long-form pages (About Me) */
+.text-block.narrow {
+  max-width: 680px;
+}
+
 .text-block a {
   text-decoration: underline;
 }
 
-.text-block a:hover {
-  opacity: 0.7;
+/* Inline links highlight behind the text instead of dimming */
+.text-block a:hover,
+.splash-text a:hover {
+  background: var(--panel-hover);
+  border-radius: 4px;
 }
 
 .image-block {
   max-width: 800px;
   margin: 0 auto 20px;
   padding: 12px;
+  transition: background 0.2s ease;
+}
+
+.image-block:hover {
+  background: var(--panel-hover);
 }
 
 .image-block img {
@@ -617,6 +635,11 @@ a {
   max-width: 800px;
   margin: 0 auto 20px;
   padding: 12px;
+  transition: background 0.2s ease;
+}
+
+.video-block:hover {
+  background: var(--panel-hover);
 }
 
 .video-block .video-frame {
