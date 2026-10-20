@@ -5,5 +5,10 @@
   ],
   "responseOverrides": {
     "404": { "rewrite": "/404.html" }
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www-ccv.adobe.io; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+    "X-Frame-Options": "DENY",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
   }
 }
