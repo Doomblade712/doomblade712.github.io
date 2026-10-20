@@ -1,9 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Rollback path only: hosting moved to Azure Static Web Apps (azure-swa.yml).
+# Run this manually from the Actions tab to republish to GitHub Pages.
 on:
-  push:
-    branches: [main]
-  # allows manual runs from the Actions tab
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,11 @@
+{
+  "routes": [
+    { "route": "/malik-danab", "redirect": "/", "statusCode": 301 },
+    { "route": "/malik-danab/", "redirect": "/", "statusCode": 301 },
+    { "route": "/sales-tax-calculator", "redirect": "/finalprice/", "statusCode": 301 },
+    { "route": "/sales-tax-calculator/", "redirect": "/finalprice/", "statusCode": 301 }
+  ],
+  "responseOverrides": {
+    "404": { "rewrite": "/404.html" }
+  }
+}

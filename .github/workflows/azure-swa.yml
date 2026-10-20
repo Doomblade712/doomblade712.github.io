@@ -1,0 +1,38 @@
+name: Deploy to Azure Static Web Apps
+
+on:
+  push:
+    branches: [main]
+  # allows manual runs from the Actions tab
+  workflow_dispatch:
+
+# One deploy at a time; queued runs wait instead of colliding
+concurrency:
+  group: azure-swa
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build with Astro
+        run: npm run build
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          # deployment token from the Static Web App resource (portal: Manage deployment token)
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: upload
+          # dist/ is already built above; the action just uploads it
+          # (staticwebapp.config.json rides along via public/)
+          app_location: dist
+          skip_app_build: true
