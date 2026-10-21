@@ -1,18 +1,28 @@
 name: Deploy to Azure Static Web Apps
 
+# Only main deploys production. A push to a preview/* branch or a pull request
+# to main lands in a preview environment on the same Static Web App;
+# production_branch below is what keeps those deploys off production.
 on:
   push:
+    branches:
+      - main
+      - 'preview/**'
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
     branches: [main]
   # allows manual runs from the Actions tab
   workflow_dispatch:
 
-# One deploy at a time; queued runs wait instead of colliding
+# One deploy at a time per ref; queued runs wait instead of colliding
 concurrency:
-  group: azure-swa
+  group: azure-swa-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   deploy:
+    # closed pull requests go to the close-preview job; pull requests from forks have no deploy token
+    if: github.event_name != 'pull_request' || (github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,8 +34,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build with Astro
-        run: npm run build
+      - name: Build and check
+        run: npm run check
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
@@ -36,3 +46,15 @@ jobs:
           # (staticwebapp.config.json rides along via public/)
           app_location: dist
           skip_app_build: true
+          # only this branch is production; every other ref lands in a preview environment
+          production_branch: main
+
+  close-preview:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close the pull request preview
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: close
