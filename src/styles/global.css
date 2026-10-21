@@ -9,7 +9,6 @@
   --font-button: 'Quicksand', 'Varela Round', sans-serif;
   --text-light: #fff;
   --text-soft: #c0c6cc;
-  --text-dark: #222;
   --panel-bg: #222;
   --text-panel: rgba(12, 12, 16, 0.6);
   --panel-hover: rgba(255, 255, 255, 0.25);
@@ -646,7 +645,6 @@ a {
 
 .page-header-logo {
   display: block;
-  flex: 0 0 auto;
   max-width: 200px;
   padding: 10px;
   background: var(--text-panel);
@@ -659,9 +657,7 @@ a {
 }
 
 .page-header-logo img {
-  display: block;
   width: 100%;
-  height: auto;
   border-radius: 6px;
 }
 
