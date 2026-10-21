@@ -10,4 +10,4 @@ Featured work:
 - **[FourSight](https://malikdanab.com/foursight/)** — solo-developed roguelike deck-building tower defense built on Unity DOTS, with flow field pathfinding and a data-driven card keyword system.
 - **[FinalPrice](https://malikdanab.com/finalprice/)** — Chrome extension published on the Web Store that shows tax-included prices on any shopping site.
 
-Built as a static [Astro](https://astro.build) site and deployed automatically to GitHub Pages on every push to `main`.
+Built as a static [Astro](https://astro.build) site. A push to `main` deploys it to Azure Static Web Apps.

@@ -630,7 +630,7 @@ a {
   border-radius: 6px;
 }
 
-/* Inline SVG architecture diagrams (FourSight) */
+/* Inline SVG architecture diagrams (FinalPrice and FourSight) */
 .diagram-block svg {
   display: block;
   width: 100%;
