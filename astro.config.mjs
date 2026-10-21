@@ -4,6 +4,8 @@ import sitemap from '@astrojs/sitemap';
 
 // site: used for canonical URLs and sitemaps.
 export default defineConfig({
+  // Astro 7 defaults this to jsx and drops the space before a link that starts a new source line.
+  compressHTML: true,
   site: 'https://malikdanab.com',
   integrations: [sitemap()],
   redirects: {
