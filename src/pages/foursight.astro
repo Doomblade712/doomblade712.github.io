@@ -34,10 +34,20 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
         </div>
         <div>Tools: Unity 6, C#, Photoshop, Aseprite, GitHub</div>
       </div>
-      <div class="image-block">
-        <a href={itchLink} target="_blank" rel="noopener">
-          <img src="/images/foursight-1.png" alt="FourSight" width="688" height="384" />
-        </a>
+      <div class="video-block">
+        <div class="video-frame">
+          <video
+            src="/videos/foursight-hero.mp4"
+            poster="/videos/foursight-hero-poster.jpg"
+            aria-label="FourSight gameplay: towers firing at a wave while more cards are placed mid-fight"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+          ></video>
+        </div>
       </div>
     </div>
 
@@ -76,12 +86,17 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
       </div>
       <div class="video-block">
         <div class="video-frame">
-          <iframe
-            src="https://www-ccv.adobe.io/v1/player/ccv/2RNZ-DdToh4/embed?bgcolor=%23191919&lazyLoading=true&api_key=BehancePro2View"
-            title="FourSight flow field pathfinding video"
-            loading="lazy"
-            allowfullscreen
-          ></iframe>
+          <video
+            src="/videos/foursight-flowfield.mp4"
+            poster="/videos/foursight-flowfield-poster.jpg"
+            aria-label="FourSight flow field debug overlay: arrows reroute as a wall is placed, then a wave follows them to the nexus"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+          ></video>
         </div>
       </div>
     </div>
@@ -115,12 +130,52 @@ const itchLink = 'https://malikdanab.itch.io/foursight';
       </div>
       <div class="video-block">
         <div class="video-frame">
-          <iframe
-            src="https://www-ccv.adobe.io/v1/player/ccv/3B6SnPFDgup/embed?bgcolor=%23191919&lazyLoading=true&api_key=BehancePro2View"
-            title="FourSight card placement video"
-            loading="lazy"
-            allowfullscreen
-          ></iframe>
+          <video
+            src="/videos/foursight-cards.mp4"
+            poster="/videos/foursight-cards-poster.jpg"
+            aria-label="FourSight card placement: dragging a Railgun with its AOE preview, rotating it, and an Earthquake returning to hand"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-columns">
+      <div class="text-block">
+        <h3 class="sub-title">Run Structure</h3>
+        <div>
+          A run is a branching map generated from a seed. Each node is a combat, an elite, a shop, or an
+          event, and hovering a node shows its biome and damage type before you commit to
+          it. Inside a battle, the wave panel tells you how many enemies are coming and from
+          which edge, so placement decisions happen before the timer starts, not after the first
+          bug is already chewing on a wall.
+        </div>
+        <div>
+          Clearing a battle opens the upgrade pick: three cards from the current deck, then
+          three upgrade options rolled for the card you chose. Upgrades are permanent for the
+          rest of the run and change the card itself (Barbed Tips makes every Archerer shot
+          pierce up to three enemies), so the same starting deck plays out differently every
+          time.
+        </div>
+      </div>
+      <div class="video-block">
+        <div class="video-frame">
+          <video
+            src="/videos/foursight-run.mp4"
+            poster="/videos/foursight-run-poster.jpg"
+            aria-label="FourSight run map: hovering battle nodes, entering Rime Landing, and picking a card upgrade after a victory"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+          ></video>
         </div>
       </div>
     </div>
